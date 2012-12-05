@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>Google Maps JavaScript API v3 Example: Custom Controls</title>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script>
+
+//funciones
+function initialize(){
+	
+	 var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+	  var myOptions = {
+		zoom: 4,
+		center: myLatlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+	  }
+	 var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		
+	 var marker = new google.maps.Marker({
+		  position: myLatlng,
+		  title:"Hello Superposicion!"
+	  });
+	  
+	  // AGREGANDO el marker en el Mapa,s call setMap();
+	  marker.setMap(map);		
+	
+}
+
+
+</script>
+
+<style type="text/css">
+<!--
+div#contenedor {		width:500px;
+		margin:0 auto 0 auto;
+}
+div#map_canvas {		/*height: 100%;*/
+		width:500px;
+		height:350px;
+}
+-->
+</style>
+</head>
+<body onLoad="initialize()">
+<div id="contenedor">
+  <h3>Tutorial 4    'SUPERPOSICIONES' </h3>
+  son objetos del mapa que están vinculados a   coordenadas de latitud y longitud, por lo que se mueven al arrastrar o   aplicar el zoom sobre el mapa.
+<div id="map_canvas"></div>
+</div>
+</body>
+
+</html>

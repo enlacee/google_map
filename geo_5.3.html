@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Ventanas de información</title>
+        <script type="text/javascript" 
+		src="//maps.googleapis.com/maps/api/js?sensor=false&language=prl"></script>
+        <script>
+		
+		/*
+		
+		@url = https://developers.google.com/maps/documentation/javascript/geocoding
+		*/
+		
+		
+  var geocoder;
+  var map;
+  function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  }
+
+//-------------Funcion Crea Ventana INFO------------------//
+function crearVentana(contentString){
+	//Crear Ventana
+	var infoventana = new google.maps.InfoWindow({
+		content: contentString,
+		maxWidth:250
+	});
+	
+	return infoventana;
+}
+//-------------Funcion Crea Ventana INFO------------------//
+
+//---------- FUNCION -----------------
+  function codeAddress() {
+	  
+//===============================================================	  
+//================================================================
+ 
+    var address = document.getElementById("address").value;
+	
+	/* Pasando parametros:: GEOCODE:
+	{
+	 address: string,
+	 latLng: LatLng,
+	 bounds: LatLngBounds,
+	 region: string
+	}
+	*/
+	//En este caso solo pasamos la Direccion Y esperamos rpta
+    geocoder.geocode( { 'address': address}, function( results, status) { //ojo RESULTS
+	
+	console.log("RESULT");
+	console.dir(results);
+	console.log("STATUS");
+	console.dir(status);
+	alert (results[0].address_components[0].short_name);
+	
+	var string1 = results[0].address_components[0].short_name;
+	var string2 = results[0].address_components[1].short_name;
+	var string3 = results[0].address_components[2].short_name
+	var string0 = string1+' - '+string2+' - '+string3;
+	
+	var miVentanaDinamica = crearVentana(string0);
+		
+
+	
+      if (status == google.maps.GeocoderStatus.OK) {
+        map.setCenter(results[0].geometry.location);
+		
+		alert("ERROORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR  null LINEA = 79");
+		//LIMPIANDO ----------------------- ERROORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+		if(marker){
+			marker.setMap(null);
+		}
+		//Crear Marcador
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+			title:"Title De Prueba(*)"
+        });
+		
+		//Eliminar Superposicion		
+		//geocoder.setMap(); SI QUIERES LIMPIAR TODO LIMPA EL MAPA GOOGLE
+
+		//Mostrando Mensaje		
+		miVentanaDinamica.open(map, marker);
+		
+		//miVentanaDinamica.setContent("Seteando contenido miVentanaDinamica");
+		
+      } else {
+        alert("Geocode was not successful for the following reason ERROR: " + status);
+      }
+    });
+  }
+
+        </script>
+
+        <style type="text/css">
+            <!--
+            div#contenedor {
+                width:800px;
+                margin:0 auto 0 auto;
+            }
+            div#map_canvas {
+                width:800px;
+                height:500px;
+            }
+            -->
+        </style>
+    </head>
+    <body onLoad="initialize()">
+     
+    
+        <div id="contenedor">
+            <h3>Tutorial 5    'geocoding'</h3>
+            <p>muestran contenido en una ventana flotante situada encima del mapa</p>
+            <div>
+    <input id="address" type="textbox" value="Sydney, NSW">
+    <input type="button" value="Encode" onClick="codeAddress()">
+  </div>
+            
+            <div id="map_canvas"></div><img src="img/visionesweb.png">
+        </div>
+    </body>
+
+</html>

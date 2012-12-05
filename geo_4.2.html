@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Google Maps JavaScript API v3 Example: Custom Controls</title>
+        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+
+            var map;
+            var markersArray = [];
+            
+//Funcion Principal
+            function initialize() {
+                var haightAshbury = new google.maps.LatLng(37.7699298, -122.4469157);
+                var mapOptions = {
+                    zoom: 12,
+                    center: haightAshbury,
+                    mapTypeId: google.maps.MapTypeId.TERRAIN
+                };
+                //Objecto Construido
+                map =  new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+				
+                //Evento Click
+                google.maps.event.addListener(map, 'click', function(event) {
+                    addMarker(event.latLng);
+                });
+            }
+  
+  
+//Marcador 
+            function addMarker(location) {
+                //obj Marker
+                marker = new google.maps.Marker({
+                    position: location,
+                    title:"Nueva Superposiciooon! = "+location,
+                    map: map
+                });			
+				
+//Almacenando obj en un array
+                markersArray.push(marker);
+                
+                
+                
+                //Utilizar setMap ::: despues
+            }
+
+
+
+
+
+
+            // Eliminado 1 Superposiociones del MAPA, Pero manteniendolo en el marcadorArray[] array
+            function clearOverlays() {
+                if (markersArray) {
+                    for (i in markersArray) {
+                        markersArray[i].setMap(null);
+                    }
+                }
+            }
+
+            // Ver las Superposiciones  almacenados en el array
+            function showOverlays() {
+                if (markersArray) {
+                    for (i in markersArray) {
+                        markersArray[i].setMap(map);
+                    }
+                }
+            }
+
+            // Eliminado 2 todo marcadores dentro del array por referencia 'indice'
+            function deleteOverlays() {
+                if (markersArray) {
+                    for (i in markersArray) {
+                        markersArray[i].setMap(null);
+                    }
+                    markersArray.length = 0;
+                }
+            }
+
+        </script>
+
+        <style type="text/css">
+            <!--
+            div#contenedor {
+                width:500px;
+                margin:0 auto 0 auto;
+            }
+            div#map_canvas {
+                width:500px;
+                height:350px;
+            }
+            -->
+        </style>
+    </head>
+    <body onLoad="initialize()">
+        <div id="contenedor">
+            <h3>Tutorial 4    'SUPERPOSICIONES' = 'OVERLAY'</h3>
+            son objetos del mapa que están vinculados a   coordenadas de latitud y longitud, por lo que se mueven al arrastrar o   aplicar el zoom sobre el mapa.<br>
+
+            <input type="button" name="btn1"  value="limpiar mapa" onClick="clearOverlays()">
+            <input type="button" name="btn2"  value="ver " onClick="showOverlays()">
+            <input type="button" name="btn3"  value="Limpiar all array"  onClick="deleteOverlays()">
+
+            <br>
+            <div id="map_canvas"></div>
+        </div>
+    </body>
+
+</html>

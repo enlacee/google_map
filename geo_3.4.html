@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+	div#contenedor{
+		width:500px;
+		margin:0 auto 0 auto;
+	}	
+    div#map_canvas { 
+		/*height: 100%;*/
+		width:500px;
+		height:350px;
+	}
+    </style>
+    <script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJHoCLJb_K0TPxWagrigvltvi33-lhpDU&sensor=false">
+    </script>
+    <script type="text/javascript">
+	
+	function initialize() {
+			//OBJECT	
+		  var myOptions = {
+			zoom: 4,
+			center: new google.maps.LatLng(-33, 151),
+			panControl: false,
+			zoomControl: false,
+			scaleControl: true,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		  }
+		  
+		  //ok
+		  var map = new google.maps.Map(document.getElementById("map_canvas"),
+				myOptions);
+	}
+	  
+	  
+    </script>
+  <title>Tutorial 4 'BASIC' =&gt; Google best</title></head>
+  <body onLoad="initialize()">
+  
+  <div id="contenedor">
+<h3>Tutorial 4    'BASIC' =&gt; Google best</h3>
+
+<div id="map_canvas"></div>
+  
+  </div> <!--end contenedor-->
+  </body>
+</html>

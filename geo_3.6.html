@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            div#contenedor{
+                width:500px;
+                margin:0 auto 0 auto;
+            }	
+            div#map_canvas { 
+                /*height: 100%;*/
+                width:500px;
+                height:350px;
+            }
+        </style>
+        <script type="text/javascript"
+                src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCJHoCLJb_K0TPxWagrigvltvi33-lhpDU&sensor=false">
+        </script>
+        <script type="text/javascript">
+	
+            var map;
+            var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+
+            /**
+             * The HomeControl adds a control to the map that
+             * returns the user to the control's defined home.
+             */
+
+            // Definiendo una Propiedad dentro de sus estados 'home_'
+            HomeControl.prototype.home_ = null;
+
+            // Definiendo setters and getters para esta propiedad
+            HomeControl.prototype.getHome = function() {
+                return this.home_;
+            }
+
+            HomeControl.prototype.setHome = function(home) {
+                this.home_ = home;
+            }
+
+function HomeControl(map, div, home) {
+
+  // Get the control DIV. We'll attach our control UI to this DIV.
+  var controlDiv = div;
+
+  // We set up a variable for the 'this' keyword since we're adding event
+  // listeners later and 'this' will be out of scope.
+  var control = this;
+
+  // Set the home property upon construction
+  control.home_ = home;
+
+  // Set CSS styles for the DIV containing the control. Setting padding to
+  // 5 px will offset the control from the edge of the map
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border
+  var goHomeUI = document.createElement('DIV');
+  goHomeUI.title = 'Click to set the map to Home';
+  controlDiv.appendChild(goHomeUI);
+
+  // Set CSS for the control interior
+  var goHomeText = document.createElement('DIV');
+  goHomeText.innerHTML = 'Home';
+  goHomeUI.appendChild(goHomeText);
+  
+  // Set CSS for the setHome control border
+  var setHomeUI = document.createElement('DIV');
+  setHomeUI.title = 'Click to set Home to the current center';
+  controlDiv.appendChild(setHomeUI);
+
+  // Set CSS for the control interior
+  var setHomeText = document.createElement('DIV');
+  setHomeText.innerHTML = 'Set Home';
+  setHomeUI.appendChild(setHomeText);
+
+  // Setup the click event listener for Home:
+  // simply set the map to the control's current home property.
+  google.maps.event.addDomListener(goHomeUI, 'click', function() {
+    var currentHome = control.getHome();
+    map.setCenter(currentHome);
+  });
+
+  // Setup the click event listener for Set Home:
+  // Set the control's home to the current Map center.
+  google.maps.event.addDomListener(setHomeUI, 'click', function() {
+    var newHome = map.getCenter();
+    control.setHome(newHome);
+  });
+}
+
+            
+            
+            //INICIANDO FUNCION
+
+            function initialize() {
+                var mapDiv = document.getElementById('map_canvas');
+                var myOptions = {
+                    zoom: 12,
+                    center: chicago,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                map = new google.maps.Map(mapDiv, myOptions);
+
+                // Create the DIV to hold the control and call the HomeControl()
+                // constructor passing in this DIV.
+                var homeControlDiv = document.createElement('DIV');
+                var homeControl = new HomeControl(map, homeControlDiv, chicago);
+
+                homeControlDiv.index = 1;
+                map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+            }	  
+	  
+	  
+	  
+        </script>
+        <title>Tutorial 4 'BASIC' =&gt; Google best</title></head>
+    <body onLoad="initialize()">
+
+        <div id="contenedor">
+            <h3>Tutorial 4    'BASIC' =&gt; Google best</h3>
+
+            <div id="map_canvas"></div>
+
+        </div> <!--end contenedor-->
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Google Maps JavaScript API v3 Example: Custom Controls</title>
+        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+
+function initialize(){
+
+            var myLatlng = new google.maps.LatLng(-11.405367,-76.992188);
+            
+            var myOptions = {
+                zoom: 4,
+                center: myLatlng, //Usando variable
+                mapTypeId: google.maps.MapTypeId.ROADMAP //ROADMAP
+            }
+            
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+            //Agregando MARCADOR
+            var marker = new google.maps.Marker({
+                position: myLatlng, 
+                map: map, 
+                title:"Hello World!"
+            }); 
+			
+}
+</script>
+
+        <style type="text/css">
+            <!--
+            div#contenedor {
+                width:500px;
+                margin:0 auto 0 auto;
+            }
+            div#map_canvas {
+                width:500px;
+                height:350px;
+            }
+            -->
+        </style>
+    </head>
+    <body onLoad="initialize()">
+        <div id="contenedor">
+            <h3>Tutorial 4    'SUPERPOSICIONES' = 'OVERLAY'</h3>
+            <div id="map_canvas"></div>
+        </div>
+    </body>
+
+</html>

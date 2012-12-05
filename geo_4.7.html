@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Ventanas de información</title>
+        <script type="text/javascript" 
+		src="//maps.googleapis.com/maps/api/js?sensor=false&language=prl"></script>
+        <script>
+            
+            //Funcion Principal
+            function initialize() {                
+                
+                // Inicio Variables
+                var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+                
+                var myOptions = {
+                    zoom: 4,
+                    center: myLatlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+
+                var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+                var contentString = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<img src="img/visionesweb.png">'+
+                    '<h3 id="firstHeading" class="firstHeading">Uluru</h3>'+
+                    '<div id="bodyContent">'+
+                    '<b>Uluru</b>, also referred to as <br><b>Ayers Rock</b>, is a large ' +
+                    'sandstone rock formation in<br> the southern part of the '+
+                    '</div>'+
+                    '</div>';
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                    maxWidth:250
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title:"Uluru (Ayers Rock)"
+                });                
+                // Final Variables
+
+                // inicio Evento Click
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map, marker);
+                });
+            
+            }
+
+        </script>
+
+        <style type="text/css">
+            <!--
+            div#contenedor {
+                width:800px;
+                margin:0 auto 0 auto;
+            }
+            div#map_canvas {
+                width:800px;
+                height:500px;
+            }
+            -->
+        </style>
+    </head>
+    <body onLoad="initialize()">
+        <div id="contenedor">
+            <h3>Tutorial 4    'Ventanas de información' = 'InfoWindow'</h3>
+            <p>muestran contenido en una ventana flotante situada encima del mapa</p>
+            <div id="map_canvas"></div><img src="img/visionesweb.png">
+        </div>
+    </body>
+
+</html>

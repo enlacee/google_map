@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>Superposiciones de suelo</title>
+        <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script>
+ function initialize(){
+     
+            var newark = new google.maps.LatLng(40.740, -74.18);
+            
+            //Inicio Imagen
+            var imageBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(40.716216,-74.213393),
+            new google.maps.LatLng(40.765641,-74.139235));
+            //Final Imagen
+            
+            var myOptions = {
+                zoom: 13,
+                center: newark,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            
+            //NEW 'superponer Suelo' -> GroundOverlay
+            var oldmap = new google.maps.GroundOverlay(
+            "http://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg",
+            imageBounds);
+            
+            oldmap.setMap(map);  
+ }
+        </script>
+
+        <style type="text/css">
+            <!--
+            div#contenedor {
+                width:800px;
+                margin:0 auto 0 auto;
+            }
+            div#map_canvas {
+                width:800px;
+                height:500px;
+            }
+            -->
+        </style>
+    </head>
+    <body onLoad="initialize()">
+        <div id="contenedor">
+            <h3>Tutorial 4    'Superposiciones de suelo' = 'OVERLAY'</h3>
+            <div id="map_canvas"></div>
+        </div>
+    </body>
+
+</html>
